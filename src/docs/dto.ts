@@ -7,6 +7,9 @@ const toBool = ({ value }: { value: any }) =>
   value === true || value === 'true' || value === '1' || value === 1;
 
 export class CreateDocDto {
+  @Matches(/^\d+$/, { message: 'tenantId must be numeric' })
+  tenantId!: string;
+
   @Matches(SLUG_RE, { message: 'slug must be lowercase a-z0-9 and hyphens' })
   @MaxLength(200)
   slug!: string;

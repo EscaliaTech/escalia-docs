@@ -89,7 +89,7 @@ export class AdminController {
   @UseInterceptors(FileInterceptor('file', uploadOpts))
   async createDoc(
     @UploadedFile() file: Express.Multer.File,
-    @Body() body: CreateDocDto & { tenantId: string },
+    @Body() body: CreateDocDto,
   ) {
     if (!file) throw new BadRequestException('file required');
     const ext = extFor(file.mimetype);
