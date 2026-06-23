@@ -1,8 +1,11 @@
-node_modules/
-dist/
-.env
-*.log
-storage/
-*.db
-*.db-journal
-*.tsbuildinfo
+# root-level ignores (per-folder .gitignore still apply in backend/ and frontend/)
+**/node_modules/
+**/dist/
+**/.env
+**/*.log
+**/*.db
+**/*.db-journal
+**/*.tsbuildinfo
+**/storage/
+.playwright-mcp/
+**/.playwright-mcp/

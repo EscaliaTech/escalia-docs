@@ -1,0 +1,127 @@
+:root {
+  --bg: #0f1729;
+  --surface: #18223b;
+  --surface-2: #1f2c4a;
+  --border: #2a3a5e;
+  --text: #e6ecf7;
+  --muted: #8a99b8;
+  --accent: #c9a24b;
+  --accent-soft: #c9a24b22;
+  --danger: #e0566b;
+  --ok: #4fbf8b;
+  --radius: 10px;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: background .15s, border-color .15s;
+}
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); color: #1a1303; border-color: var(--accent); font-weight: 600; }
+button.primary:hover { filter: brightness(1.08); }
+button.ghost { background: transparent; }
+button.danger { color: var(--danger); border-color: transparent; background: transparent; }
+button.danger:hover { background: #e0566b18; border-color: var(--danger); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+
+input, select {
+  font: inherit;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  width: 100%;
+}
+input:focus, select:focus { outline: none; border-color: var(--accent); }
+label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 5px; }
+
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+
+.topbar {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.brand { font-weight: 700; letter-spacing: .5px; }
+.brand span { color: var(--accent); }
+.topbar .spacer { flex: 1; }
+
+.main { flex: 1; padding: 24px; max-width: 1100px; width: 100%; margin: 0 auto; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.card h2 { margin: 0 0 4px; font-size: 15px; }
+.card .hint { color: var(--muted); font-size: 12px; margin: 0 0 16px; }
+
+.row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+.row > div { flex: 1; min-width: 140px; }
+
+.center-screen {
+  min-height: 100vh; display: grid; place-items: center; padding: 24px;
+}
+.login-box { width: 340px; }
+
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .4px; }
+td .slug { font-family: ui-monospace, monospace; color: var(--accent); }
+
+.badge {
+  display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 600;
+}
+.badge.pub { background: #4fbf8b22; color: var(--ok); }
+.badge.priv { background: #c9a24b22; color: var(--accent); }
+
+.tenant-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.tenant-tabs .tab {
+  padding: 7px 14px; border-radius: 999px; border: 1px solid var(--border);
+  background: transparent; color: var(--muted);
+}
+.tenant-tabs .tab.active { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+
+.error { color: var(--danger); font-size: 13px; margin: 8px 0; }
+.muted { color: var(--muted); }
+.right { text-align: right; }
+
+.dropzone {
+  border: 1.5px dashed var(--border); border-radius: var(--radius);
+  padding: 22px; text-align: center; color: var(--muted); cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.dropzone.drag { border-color: var(--accent); background: var(--accent-soft); color: var(--text); }
+
+.modal-backdrop {
+  position: fixed; inset: 0; background: #0008; display: grid; place-items: center; z-index: 50;
+}
+.modal { width: 360px; }
+.toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
+.toolbar .spacer { flex: 1; }
+.toast {
+  position: fixed; bottom: 20px; right: 20px; background: var(--surface-2);
+  border: 1px solid var(--border); padding: 12px 16px; border-radius: 8px; z-index: 60;
+}
+.toast.err { border-color: var(--danger); color: var(--danger); }
