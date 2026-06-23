@@ -23,7 +23,7 @@ import { AuthService } from '@/auth/auth.service';
 import { DocsService } from '@/docs/docs.service';
 import { TenantsService } from '@/docs/tenants.service';
 import { CreateDocDto, UpdateDocDto, LoginDto, TenantDto, CredentialDto } from '@/docs/dto';
-import { extFor } from '@/docs/mime';
+import { resolveType } from '@/docs/mime';
 
 const MAX_MB = Number(process.env.MAX_UPLOAD_MB ?? 50);
 const uploadOpts = {
@@ -92,8 +92,8 @@ export class AdminController {
     @Body() body: CreateDocDto,
   ) {
     if (!file) throw new BadRequestException('file required');
-    const ext = extFor(file.mimetype);
-    if (!ext) throw new BadRequestException(`unsupported type: ${file.mimetype}`);
+    const resolved = resolveType(file.mimetype, file.originalname);
+    if (!resolved) throw new BadRequestException(`unsupported type: ${file.mimetype}`);
     const tenant = await this.tenants.getById(Number(body.tenantId));
     return this.docs.create({
       tenantId: tenant.id,
@@ -101,9 +101,9 @@ export class AdminController {
       slug: body.slug,
       title: body.title,
       isPublic: body.isPublic ?? true,
-      contentType: file.mimetype,
+      contentType: resolved.mime,
       buffer: file.buffer,
-      ext,
+      ext: resolved.ext,
     });
   }
 
@@ -126,9 +126,9 @@ export class AdminController {
       });
     }
     if (file) {
-      const ext = extFor(file.mimetype);
-      if (!ext) throw new BadRequestException(`unsupported type: ${file.mimetype}`);
-      return this.docs.replaceFile(id, tenant.key, file.mimetype, file.buffer, ext);
+      const resolved = resolveType(file.mimetype, file.originalname);
+      if (!resolved) throw new BadRequestException(`unsupported type: ${file.mimetype}`);
+      return this.docs.replaceFile(id, tenant.key, resolved.mime, file.buffer, resolved.ext);
     }
     return this.docs.getById(id);
   }

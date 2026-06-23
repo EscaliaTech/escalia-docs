@@ -15,6 +15,7 @@ const TYPE_LABEL: Record<string, string> = {
   'image/webp': 'WEBP',
   'image/gif': 'GIF',
   'image/svg+xml': 'SVG',
+  'application/vnd.android.package-archive': 'APK',
 };
 
 export default function DocsTable({

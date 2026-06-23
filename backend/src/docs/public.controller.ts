@@ -14,7 +14,7 @@ import { DocsService } from '@/docs/docs.service';
 import { AuthService } from '@/auth/auth.service';
 import { UnlockDto } from '@/docs/dto';
 import { StorageService } from '@/docs/storage.service';
-import { isActiveType } from '@/docs/mime';
+import { isActiveType, isDownloadType, ALLOWED_MIME } from '@/docs/mime';
 
 const READER_COOKIE = 'reader_session';
 
@@ -68,8 +68,9 @@ export class PublicController {
         "default-src 'self'; script-src 'none'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'",
       );
     }
-    const filename = `${slug}${doc.contentType === 'application/pdf' ? '.pdf' : ''}`;
-    res.setHeader('Content-Disposition', `inline; filename="${filename}"`);
+    const ext = ALLOWED_MIME[doc.contentType] ?? '';
+    const disposition = isDownloadType(doc.contentType) ? 'attachment' : 'inline';
+    res.setHeader('Content-Disposition', `${disposition}; filename="${slug}${ext}"`);
 
     this.storage.stream(tenant.key, doc.fileName).pipe(res);
   }

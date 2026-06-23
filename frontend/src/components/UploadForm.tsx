@@ -1,7 +1,7 @@
 import { DragEvent, FormEvent, useRef, useState } from 'react';
 import { api, Tenant } from '@/api';
 
-const ACCEPT = '.pdf,.html,.htm,.png,.jpg,.jpeg,.webp,.gif,.svg';
+const ACCEPT = '.pdf,.html,.htm,.png,.jpg,.jpeg,.webp,.gif,.svg,.apk';
 
 function slugify(name: string): string {
   return name
