@@ -89,7 +89,7 @@ export class PublicController {
     if (isActiveType(doc.contentType)) {
       res.setHeader(
         'Content-Security-Policy',
-        "default-src 'self'; script-src 'none'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'",
+        "default-src 'self'; script-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; object-src 'none'; frame-ancestors 'none'; base-uri 'none'",
       );
     }
     const ext = ALLOWED_MIME[doc.contentType] ?? '';

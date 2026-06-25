@@ -7,6 +7,7 @@ export const ALLOWED_MIME: Record<string, string> = {
   'image/gif': '.gif',
   'image/svg+xml': '.svg',
   'application/vnd.android.package-archive': '.apk',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': '.xlsx',
 };
 
 const EXT_TO_MIME: Record<string, string> = {
@@ -20,6 +21,7 @@ const EXT_TO_MIME: Record<string, string> = {
   '.gif': 'image/gif',
   '.svg': 'image/svg+xml',
   '.apk': 'application/vnd.android.package-archive',
+  '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 };
 
 export function extFor(mime: string): string | null {
@@ -48,5 +50,5 @@ export function isActiveType(mime: string): boolean {
 
 // Binary types served as a forced download rather than inline render.
 export function isDownloadType(mime: string): boolean {
-  return mime === 'application/vnd.android.package-archive';
+  return mime === 'application/vnd.android.package-archive' || mime === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 }
